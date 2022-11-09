@@ -15,17 +15,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('first_name');
             $table->string('second_name');
             $table->string('username');
             $table->string('email')->unique();
             $table->string('phone_no');
-            $table->string('image');
+            $table->string('image')->default('laravel.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('about');
-            $table->string('status');
+            $table->enum('gender',['male','female','others'])->nullable();
+            $table->text('about');
+            $table->enum('status',['active','pending','blocked']);
+            $table->timestamp('blocked_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
