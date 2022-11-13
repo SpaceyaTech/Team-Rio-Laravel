@@ -23,17 +23,15 @@ class UserTest extends TestCase
 
     public function test_required_fields_for_registration(){
 
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $response = $this->post('/api/register',[
             "first_name" => 'f_test',
             "second_name" =>  's_test',
             "username" => "f_test"."_"."s_test",
             "email" => 'test@test.com',
             "phone_no" => '0726262626',
-            "image" => 'image ura',
-            "gender" => 'male',
-            "status" => 'active',
-            "about" => "The status field is required.",
+            'verification_code' => 1111,
+            'number_of_verification_request' =>1,
             "password" => 'password',
             "password_confirmation" => 'password'
         ]);
@@ -50,12 +48,10 @@ class UserTest extends TestCase
             "username" => "f_test"."_"."s_test",
             "email" => 'test@test.com',
             "phone_no" => '0726262626',
-            "image" => 'image ura',
-            "gender" => 'male',
-            "status" => 'active',
-            "about" => "The status field is required.",
+            'verification_code' => 1111,
+            'number_of_verification_request' =>1,
             "password" => 'password',
-            "password_confirmation" => 'password2'
+            "password_confirmation" => 'password'
         ]);
         $response->assertSessionHasErrors('password');
         
