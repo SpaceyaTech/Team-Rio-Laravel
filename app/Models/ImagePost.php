@@ -15,4 +15,14 @@ class ImagePost extends Model
 
     ];
 
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function image()
+    {
+        return $this->hasMany(Image::class);
+    }
+
 }

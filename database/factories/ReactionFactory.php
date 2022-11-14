@@ -21,10 +21,12 @@ class ReactionFactory extends Factory
      */
     public function definition()
     {
+     
+        $arrayValues = ["Upvote", "Downvote", "Clap"];
  
         
         return [
-            'reaction_type'=>fake()->randomElement(Reaction::pluck('reaction_type')),
+            'reaction_type'=>$arrayValues[rand(0,2)],
             'post_id' =>fake()->randomElement(Post::pluck('id')),
             'comment_id' =>fake()->randomElement(Comment::pluck('id')),
             'account_id'=>fake()->randomElement(Account::pluck('id')),

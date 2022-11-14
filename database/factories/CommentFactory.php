@@ -19,11 +19,13 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+
+        
         return [
             'content'=>fake()->realText(),
             'account_id' => fake()->randomElement(Account::pluck('id')),
             'post_id'=> fake()->randomElement(Post::pluck('id')),
-            //'comment_id'=> fake()->randomElement(Comment::pluck('id')),
+            'comment_id' => fake()->randomElement(Post::pluck('id')),
         ];
     }
 }

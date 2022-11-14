@@ -16,5 +16,31 @@ class Post extends Model
 
     ];
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function categorypost()
+    {
+        return $this->hasMany(CategoryPost::class);
+    }
+
+    public function imagePost()
+    {
+        return $this->hasMany(ImagePost::class);
+    }
+
+    public function reaction()
+    {
+        return $this->hasMany(Reaction::class);
+    }
+
+
 
 }
