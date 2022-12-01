@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignIdFor(Post::class);
             // $table->integer('post_id');
             // $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            //$table->foreignIdFor(Comment::class);
+            $table->foreignIdFor(Comment::class);
             // $table->integer('comment_id');
             // $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();

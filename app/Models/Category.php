@@ -14,4 +14,11 @@ class Category extends Model
         'post_views',
     
     ];
+
+
+    public function categoryPost()
+    {
+        return $this->belongsTo(CategoryPost::class);
+    }
+
 }

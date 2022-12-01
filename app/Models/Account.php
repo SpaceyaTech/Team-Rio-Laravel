@@ -16,6 +16,25 @@ class Account extends Model
             "bio_data" ,
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
+    public function reaction()
+    {
+        return $this->hasMany(Reaction::class);
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
+
+  
 
 }
