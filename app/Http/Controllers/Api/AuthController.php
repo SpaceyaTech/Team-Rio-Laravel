@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -22,6 +23,7 @@ class AuthController extends Controller
 
         //hash password
         $validatedData['password'] = bcrypt($request->password);
+        $validatedData['remember_token'] = Str::random();
 
         //create user
         $user = User::create($validatedData);
