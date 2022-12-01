@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
 
 
     /**
@@ -22,13 +22,11 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'second_name',
-        'Username',
+        'username',
         'email',
         'phone_no',
-        'image',
-        'gender',
-        'status',
-        'about',
+        'verification_code',
+        'number_of_verification_request',
         'password',
     ];
 
@@ -50,4 +48,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function account()
+    {
+        return $this->hasMany(Account::class);
+    }
+    public function roleuser()
+    {
+        return $this->hasMany(RoleUser::class);
+    }
 }
