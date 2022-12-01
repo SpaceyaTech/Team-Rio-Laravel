@@ -14,6 +14,8 @@ class Post extends Model
        'post_content',
        'account_id'
 
+
+
     ];
 
     public function account()

@@ -54,7 +54,7 @@ class AccountController extends Controller
         //create account with data from the user
         $account = new ModelsAccount();
 
-        $account->user_id = $request->user_id;
+        $account->user_id = auth()->user()->id;
         $account->account_name = $request->account_name;
         $account->image = $request->image;
         $account->bio_data = $request->bio_data;
