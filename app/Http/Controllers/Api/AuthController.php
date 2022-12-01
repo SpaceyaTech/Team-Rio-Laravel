@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -14,43 +15,37 @@ class AuthController extends Controller
     {
         //validate data
         $validatedData = $request->validate([
-            'first_name' => 'required|max:55',
-            'second_name' => 'required|max:55',
             'username' => 'required|max:55|unique:users,username',
             'email' => 'email|required|unique:users',
-            'phone_no' => 'required|max:55',
-            'image' => 'required',
-            'status' => 'required',
-            'about' => 'required',
+            'phone_no' => 'required|max:55|unique:users,phone_no',
             'password' => 'required|confirmed'
         ]);
- 
 
         //hash password
         $validatedData['password'] = bcrypt($request->password);
-        
+        $validatedData['remember_token'] = Str::random();
 
         //create user
         $user = User::create($validatedData);
-       
+        //send verification link
+        $user->sendEmailVerificationNotification();
 
         //return response
         return response()->json(
             [
                 "status" => 1,
                 "message" => "User created successfully",
+                "message 2" => "Email verifiction link has been sent to your email id",
                 "data" => $user
 
             ]
         );
-
-        
     }
 
 
 
 
- public function login(Request $request)
+    public function login(Request $request)
     {
         //validate date
         $loginData = $request->validate(
@@ -62,7 +57,7 @@ class AuthController extends Controller
         //check for credentials
         if (!auth()->attempt($loginData)) {
             return response(
-                [ 
+                [
                     "status" => 0,
                     'message' => 'Invalid Credentials'
                 ]
@@ -72,9 +67,9 @@ class AuthController extends Controller
         //logged in user data
         $user = auth()->user();
 
-       //create access token
+        //create access token
         $accessToken = $user->createToken('authToken')->accessToken;
-        $user['accessToken']=$accessToken ;
+        $user['accessToken'] = $accessToken;
 
         return response(
             [
@@ -85,21 +80,36 @@ class AuthController extends Controller
         );
     }
 
+    //for admin to view all users in the system;
+
+    public function all_users()
+    {
+
+        $users = User::get();
+
+        return response()->json(
+            [
+                "status" => 1,
+                "message" => "All users",
+                "data" => $users
+            ]
+        );
+    }
+
     public function profile()
     {
-       $user_data = auth()->user(); 
-    
+        $user_data = auth()->user();
+
 
         return response()->json([
             "status" => 1,
             "message" => "User ",
             "User data" => $user_data
         ]);
-
     }
 
-   
-      
+
+
 
 
     public function logout(Request $request)
@@ -115,6 +125,4 @@ class AuthController extends Controller
             "message" => "User logged out successfully"
         ]);
     }
-
-
 }
