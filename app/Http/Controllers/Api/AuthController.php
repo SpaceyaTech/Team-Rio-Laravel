@@ -14,25 +14,18 @@ class AuthController extends Controller
     {
         //validate data
         $validatedData = $request->validate([
-            'first_name' => 'required|max:55',
-            'second_name' => 'required|max:55',
             'username' => 'required|max:55|unique:users,username',
             'email' => 'email|required|unique:users',
             'phone_no' => 'required|max:55',
-            'image' => 'required',
-            'status' => 'required',
-            'about' => 'required',
             'password' => 'required|confirmed'
         ]);
- 
 
         //hash password
         $validatedData['password'] = bcrypt($request->password);
-        
 
         //create user
         $user = User::create($validatedData);
-       
+
 
         //return response
         return response()->json(
@@ -43,14 +36,12 @@ class AuthController extends Controller
 
             ]
         );
-
-        
     }
 
 
 
 
- public function login(Request $request)
+    public function login(Request $request)
     {
         //validate date
         $loginData = $request->validate(
@@ -62,7 +53,7 @@ class AuthController extends Controller
         //check for credentials
         if (!auth()->attempt($loginData)) {
             return response(
-                [ 
+                [
                     "status" => 0,
                     'message' => 'Invalid Credentials'
                 ]
@@ -72,9 +63,9 @@ class AuthController extends Controller
         //logged in user data
         $user = auth()->user();
 
-       //create access token
+        //create access token
         $accessToken = $user->createToken('authToken')->accessToken;
-        $user['accessToken']=$accessToken ;
+        $user['accessToken'] = $accessToken;
 
         return response(
             [
@@ -85,21 +76,36 @@ class AuthController extends Controller
         );
     }
 
+    //for admin to view all users in the system;
+
+    public function all_users()
+    {
+
+        $users = User::get();
+
+        return response()->json(
+            [
+                "status" => 1,
+                "message" => "All users",
+                "data" => $users
+            ]
+        );
+    }
+
     public function profile()
     {
-       $user_data = auth()->user(); 
-    
+        $user_data = auth()->user();
+
 
         return response()->json([
             "status" => 1,
             "message" => "User ",
             "User data" => $user_data
         ]);
-
     }
 
-   
-      
+
+
 
 
     public function logout(Request $request)
@@ -115,6 +121,4 @@ class AuthController extends Controller
             "message" => "User logged out successfully"
         ]);
     }
-
-
 }
