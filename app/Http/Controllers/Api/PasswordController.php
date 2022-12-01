@@ -12,13 +12,12 @@ use Illuminate\Validation\Rules\Password as RulesPassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
 
-
 class PasswordController extends Controller
 {
     public function forgotPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
         ]);
 
         $status = Password::sendResetLink(

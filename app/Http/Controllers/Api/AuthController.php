@@ -17,7 +17,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'username' => 'required|max:55|unique:users,username',
             'email' => 'email|required|unique:users',
-            'phone_no' => 'required|max:55',
+            'phone_no' => 'required|max:55|unique:users,phone_no',
             'password' => 'required|confirmed'
         ]);
 
@@ -27,13 +27,15 @@ class AuthController extends Controller
 
         //create user
         $user = User::create($validatedData);
-
+        //send verification link
+        $user->sendEmailVerificationNotification();
 
         //return response
         return response()->json(
             [
                 "status" => 1,
                 "message" => "User created successfully",
+                "message 2" => "Email verifiction link has been sent to your email id",
                 "data" => $user
 
             ]

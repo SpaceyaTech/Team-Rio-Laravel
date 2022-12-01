@@ -16,7 +16,9 @@ class EmailVerificationController extends Controller
 
     public function verify($user_id, Request $request) {
         if (!$request->hasValidSignature()) {
-            return response()->json(["msg" => "Invalid/Expired url provided."], 401);
+            return response()->json([
+                "status"=>0,
+                "message" => "Invalid/Expired url provided."], 401);
         }
 
         $user = User::findOrFail($user_id);
@@ -34,11 +36,17 @@ class EmailVerificationController extends Controller
 
     public function resend() {
         if (auth()->user()->hasVerifiedEmail()) {
-            return response()->json(["msg" => "Email already verified."], 400);
+            return response()->json([
+                "status" =>0,
+                "message" => "Email already verified."
+            ]);
         }
 
         auth()->user()->sendEmailVerificationNotification();
 
-        return response()->json(["msg" => "Email verification link sent on your email id"]);
+        return response()->json([
+            "status" =>1,
+            "message" => "Email verification link sent on your email id"
+        ]);
     }
 }

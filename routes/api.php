@@ -43,8 +43,8 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('users',[AuthController::class,'all_users'])->name('users');
         Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
-        Route::post("forgot-password", [PasswordController::class, "forgotpassword"])->name('forgot');
-        Route::post("reset-password", [PasswordController::class, "reset"])->name('reset');
+        Route::post("forgot-password", [PasswordController::class, "forgotpassword"]);
+        Route::post("reset-password", [PasswordController::class, "reset"])->name('password.reset');
 
 
         //resouse routes
