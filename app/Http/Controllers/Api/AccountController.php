@@ -17,8 +17,11 @@ class AccountController extends Controller
      */
     public function index()
     {
+        //get all the accounts and save it a variable $account
 
         $account = ModelsAccount::get();
+
+        //return response and the accounts data included
         return response()->json(
             [
                 "status" => 1,
@@ -37,7 +40,7 @@ class AccountController extends Controller
     public function store(Request $request)
     {
 
-        //validation
+        //validation the data
         $request->validate(
             [
                 "user_id" => "required",
@@ -48,7 +51,7 @@ class AccountController extends Controller
             ]
         );
 
-        //create account data
+        //create account with data from the user
         $account = new ModelsAccount();
 
         $account->user_id = $request->user_id;
@@ -56,7 +59,7 @@ class AccountController extends Controller
         $account->image = $request->image;
         $account->bio_data = $request->bio_data;
 
-        //save
+        //save the account data/account
         $account->save();
 
 
@@ -83,8 +86,9 @@ class AccountController extends Controller
 
         //find the account if the account exists then return details in json format
         if (ModelsAccount::where("id", $id)->exists()) {
+            //account details will be details of account matching the id
             $account_details = ModelsAccount::where("id", $id)->first();
-
+            //return response
             return response()->json(
                 [
                     "status" => 1,
@@ -93,6 +97,7 @@ class AccountController extends Controller
                 ]
             );
         } else {
+            //else the account with the id was not found
             return response()->json(
                 [
                     "status" => 0,
@@ -114,7 +119,7 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
 
-
+        //check if account with the id exists
 
         if (ModelsAccount::where("id", $id)->exists()) {
 
@@ -123,7 +128,7 @@ class AccountController extends Controller
             $account = ModelsAccount::find($id);
 
 
-            //update if updated value is empty(no value to be updated) retain the value in the database
+            //update if updated value if empty(no value to be updated) retain the value that was in the database
             $account->user_id = !empty($request->user_id) ? $request->user_id : $account->user_id;
             $account->account_name = !empty($request->account_name) ? $request->account_name : $account->account_name;
             $account->image = !empty($request->image) ? $request->image : $account->image;
@@ -159,7 +164,7 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-
+        //check if account with the id exists
 
         if (ModelsAccount::where("id", $id)->exists()) {
 

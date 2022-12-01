@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        //validate data
+        //validate data before sending to database
         $validatedData = $request->validate([
             'username' => 'required|max:55|unique:users,username',
             'email' => 'email|required|unique:users',
@@ -21,8 +21,9 @@ class AuthController extends Controller
             'password' => 'required|confirmed'
         ]);
 
-        //hash password
+        //hash password so that we won't save plain password
         $validatedData['password'] = bcrypt($request->password);
+        //create remember token
         $validatedData['remember_token'] = Str::random();
 
         //create user
@@ -47,7 +48,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        //validate date
+        //validate data for login
         $loginData = $request->validate(
             [
                 'email' => 'email|required',
@@ -71,6 +72,8 @@ class AuthController extends Controller
         $accessToken = $user->createToken('authToken')->accessToken;
         $user['accessToken'] = $accessToken;
 
+
+        //return response
         return response(
             [
                 'status' => 1,
@@ -85,8 +88,10 @@ class AuthController extends Controller
     public function all_users()
     {
 
+        //get all the users
         $users = User::get();
 
+        //return response
         return response()->json(
             [
                 "status" => 1,
@@ -98,9 +103,11 @@ class AuthController extends Controller
 
     public function profile()
     {
+
+        //get the user data
         $user_data = auth()->user();
 
-
+        //return the response with the data
         return response()->json([
             "status" => 1,
             "message" => "User ",
@@ -114,12 +121,13 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // get token value
+        // get token value from the user
         $token = $request->user()->token();
 
         // revoke this token value
         $token->revoke();
 
+        //return a response 
         return response()->json([
             "status" => 1,
             "message" => "User logged out successfully"
