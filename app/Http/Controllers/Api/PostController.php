@@ -45,19 +45,20 @@ class PostController extends Controller
                 "post_title" => "required",
                 "post_description" => "required",
                 "post_content" => "required",
-                "account_id" => "required",
+                // "account_id" => "required",
 
             ]
         );
 
         //create post with data from the user
         $post = new Post();
-        $account_id =Account::where('id', auth()->user()->id)->first();
+
+        $account = Account::where("user_id",auth()->user()->id)->first();
 
         $post->post_title = $request->post_title;
         $post->post_description = $request->post_description;
         $post->post_content = $request->post_content;
-        $post->account_id =  $account_id ;
+        $post->account_id =  $account->id ;
 
         //save the post
         $post->save();

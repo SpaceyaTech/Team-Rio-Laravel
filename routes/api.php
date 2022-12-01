@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EmailVerificationController;
 use App\Http\Controllers\Api\PasswordController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,7 @@ Route::middleware(['auth:api'])->group(function () {
             [
                 "account" => AccountController::class,
                 "role" => RoleController::class,
+                "post"=>PostController::class,
 
 
             ]
