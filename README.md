@@ -10,7 +10,7 @@
 
 # Content Management System (cms)
 
-[![Github](https://github.com/SpaceyaTech/Team-Rio-Laravel/)
+[Github](https://github.com/SpaceyaTech/Team-Rio-Laravel/)
 
 
 ## Getting Started
