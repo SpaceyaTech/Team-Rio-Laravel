@@ -23,33 +23,39 @@
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-composer version 9^
-php version 7^
+👉 composer version 9^
+👉 php version 7^
 
 ### Setup
-##### create local repo
+
+#### create local repo
 $ mkdir project
-##### move into the repo
+
+#### move into the repo
 $ cd project
-##### clone the project
+
+#### clone the project
 $ git clone https://github.com/SpaceyaTech/Team-Rio-Laravel.git
 
-##### create .env file and copy env.example to .env
+#### create .env file and copy env.example to .env
 $ touch .env 
 
-##### create database and conect to the project inside .env
+#### create database and conect to the project inside .env
 
 DB_DATABASE=database_name
 
 
 ### Install
-##### every setup is okay run
+#### every setup is okay run
 $ composer update
-##### to power up the application
+
+#### to power up the application
 $ php  artisan serve
-##### the migrate to database
+
+#### the migrate to database
 $ php artisan migrate
-##### to seed database with 10 data for testing run
+
+#### to seed database with 10 data for testing run
 $ php artisan db:seed
 
 ### Run tests
