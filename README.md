@@ -6,7 +6,7 @@
 [![Website](https://img.shields.io/badge/website-07C160?style=for-the-badge&logoColor=white)](https://www.spaceyatech.com/#)
 [![Github](https://img.shields.io/github/followers/SpaceyaTech.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/SpaceyaTech/) 
 
-<!--
+
 
 # Content Management System (cms)
 
@@ -15,9 +15,9 @@
 
 ## Getting Started
 
-**This is an example of how you may give instructions on setting up your project locally.**
+<!-- **This is an example of how you may give instructions on setting up your project locally.**
 
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.** -->
 
 
 To get a local copy up and running follow these simple example steps.
