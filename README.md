@@ -25,6 +25,7 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 👉 composer version 9^
 👉 php version 7^
+👉 mysql
 
 ### Setup
 
