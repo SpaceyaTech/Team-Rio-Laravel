@@ -15,6 +15,14 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
+
+        Account::create([
+            "user_id" => 1,
+            "account_name" =>"Victor",
+            "image" => "photo url",
+            "bio_data" =>"my testing bio data for the account",
+
+        ]);
         Account::factory()->count(20)->create();
     }
 }
